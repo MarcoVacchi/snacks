@@ -6,100 +6,127 @@ public class App {
         // System.out.println(i);
         // }
         // System.out.println(oddOrEven(2));
-        System.out.println(countTime("ciia", 'i'));
+
+        System.out.println(isPalindrome("abba"));
     }
 
-    // Scrivi un metodo che conta quante volte compare un carattere in una stringa.
+    // Uso di array e cicli for classici
 
-    public static int countTime(String parola, char character) {
-        int count = 0;
-        char[] array = parola.toCharArray();
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == character) {
-                count++;
+    // Scrivere un metodo che verifichi se una parola è palindroma.
+    public static boolean isPalindrome(String parola) {
+        char[] parolaInvertita = parola.toCharArray();
+        char[] result = new char[parolaInvertita.length];
+        char[] parolaDritta = parola.toCharArray();
+        int j = 0;
+        boolean isPal = true;
+
+        for (int i = parolaInvertita.length - 1; i >= 0; i--) {
+            result[j++] = parolaInvertita[i];
+        }
+
+        for (int i = 0; i < parolaDritta.length; i++) {
+            if (result[i] != parolaDritta[i]) {
+                isPal = false;
             }
         }
 
-        return count;
+        return isPal;
     }
-
-    // public static String oddOrEven(int number) {
-    // String odd = "Pari";
-    // String even = "Dispari";
-    // String result = number % 2 == 0 ? odd : even;
-
-    // return result;
-    // }
-
-    // public static int[] minMax(int[] number) {
-
-    // int max = number[0];
-    // int min = number[0];
-
-    // for (int i = 0; i < number.length; i++) {
-    // if (number[i] > max) {
-    // max = number[i];
-    // } else if (number[i] < min) {
-    // min = number[i];
-    // }
-    // }
-
-    // int[] arrayResult = new int[] { max, min };
-    // return arrayResult;
-    // }
-
-    // public static String invertiStringa(String parola) {
-
-    // char[] parolaInvertita = parola.toCharArray();
-    // String result = "";
-
-    // for (int i = parolaInvertita.length - 1; i >= 0; i--) {
-    // result += parolaInvertita[i];
-    // }
-
-    // return result;
-    // }
-
-    // public static boolean isPalindrome(String parola) {
-    // char[] parolaInvertita = parola.toCharArray();
-    // char[] result = new char[parolaInvertita.length];
-    // char[] parolaDritta = parola.toCharArray();
-    // int j = 0;
-    // boolean isPal = true;
-
-    // for (int i = parolaInvertita.length - 1; i >= 0; i--) {
-    // result[j++] = parolaInvertita[i];
-    // }
-
-    // for (int i = 0; i < parolaDritta.length; i++) {
-    // if (result[i] != parolaDritta[i]) {
-    // isPal = false;
-    // }
-    // }
-
-    // return isPal;
-    // }
-
 }
 
-// Scrivi un metodo che inverte una stringa. ok
+// // Scrivi un metodo che conta quante volte compare un carattere in una
+// stringa.
 
-// Scrivi un metodo che verifica se una parola è palindroma. ok
+// public static int countTime(String parola, char character) {
+// int count = 0;
+// char[] array = parola.toCharArray();
+// for (int i = 0; i < array.length; i++) {
+// if (array[i] == character) {
+// count++;
+// }
+// }
 
-// Dato un array di interi, trova il valore massimo e il minimo. ok
+// return count;
+// }
 
-// Dato un numero intero, verifica se è pari o dispari. ok
+// // public static boolean isPalindrome(String parola) {
+// // char[] parolaInvertita = parola.toCharArray();
+// // char[] result = new char[parolaInvertita.length];
+// // char[] parolaDritta = parola.toCharArray();
+// // int j = 0;
+// // boolean isPal = true;
 
-// Scrivi un metodo che calcola la somma dei primi N numeri naturali.
+// // for (int i = parolaInvertita.length - 1; i >= 0; i--) {
+// // result[j++] = parolaInvertita[i];
+// // }
 
-// ☕ Java Core
+// // for (int i = 0; i < parolaDritta.length; i++) {
+// // if (result[i] != parolaDritta[i]) {
+// // isPal = false;
+// // }
+// // }
 
-// Scrivi un metodo che conta quante volte compare un carattere in una stringa.
+// // return isPal;
+// // }
 
-// Spiega e mostra con codice la differenza tra == ed equals().
+// // public static String oddOrEven(int number) {
+// // String odd = "Pari";
+// // String even = "Dispari";
+// // String result = number % 2 == 0 ? odd : even;
 
-// Scrivi un metodo che rimuove i duplicati da una lista di interi.
+// // return result;
+// // }
 
-// Dato un array di stringhe, restituisci la stringa più lunga.
+// // public static int[] minMax(int[] number) {
 
-// Scrivi un metodo che converte una stringa in int gestendo eventuali errori
+// // int max = number[0];
+// // int min = number[0];
+
+// // for (int i = 0; i < number.length; i++) {
+// // if (number[i] > max) {
+// // max = number[i];
+// // } else if (number[i] < min) {
+// // min = number[i];
+// // }
+// // }
+
+// // int[] arrayResult = new int[] { max, min };
+// // return arrayResult;
+// // }
+
+// // public static String invertiStringa(String parola) {
+
+// // char[] parolaInvertita = parola.toCharArray();
+// // String result = "";
+
+// // for (int i = parolaInvertita.length - 1; i >= 0; i--) {
+// // result += parolaInvertita[i];
+// // }
+
+// // return result;
+// // }
+
+// }
+
+// // Scrivi un metodo che inverte una stringa. ok
+
+// // Scrivi un metodo che verifica se una parola è palindroma. ok
+
+// // Dato un array di interi, trova il valore massimo e il minimo. ok
+
+// // Dato un numero intero, verifica se è pari o dispari. ok
+
+// // Scrivi un metodo che calcola la somma dei primi N numeri naturali.
+
+// // ☕ Java Core
+
+// // Scrivi un metodo che conta quante volte compare un carattere in una
+// stringa.
+
+// // Spiega e mostra con codice la differenza tra == ed equals().
+
+// // Scrivi un metodo che rimuove i duplicati da una lista di interi.
+
+// // Dato un array di stringhe, restituisci la stringa più lunga.
+
+// // Scrivi un metodo che converte una stringa in int gestendo eventuali errori
