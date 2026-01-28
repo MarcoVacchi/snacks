@@ -96,3 +96,28 @@ public class ListeArray {
         return result;
     }
 }
+
+/////////////////////////////// QUALCHE APPUNTO
+// A) List.of(...) (Java 9+)
+// List<String> nomi = List.of("luca", "marco", "anna");
+// Lista immutabile
+// Non puoi fare add(), remove(), set()
+// Mantiene l’ordine
+// Ottimo se vuoi solo leggere i dati
+
+// B) Arrays.asList(...)
+// List<String> nomi = Arrays.asList("luca", "marco", "anna");
+// Dimensione fissa
+// Non puoi fare add() o remove() (UnsupportedOperationException)
+// Puoi fare set(index, valore)
+// Buona per passare velocemente array → lista
+
+// C) new ArrayList<>(...)
+// List<String> nomi = new ArrayList<>(Arrays.asList("luca", "marco", "anna"));
+// Lista modificabile
+// Puoi fare add(), remove(), set()
+// Mantiene ordine e duplicati
+
+// Questo è quello che userai quasi sempre quando vuoi modificare la lista.
+// Ottieni una nuova lista con tutti i nomi in MAIUSCOLO.
+// List<String> nomi = new ArrayList<>(List.of("luca", "marco", "anna"));
