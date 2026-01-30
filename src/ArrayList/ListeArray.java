@@ -63,6 +63,7 @@ public class ListeArray {
 
         // SOSTITUZIONE DI UN ELEMENTO IN UNA POSIZIONE SPECIFICA
         final String newValue = peopleString.set(0, "giovanni");
+        System.out.println(newValue);
 
         // ITERAZIONE USANDO METHOD REFERENCE
         peopleString.forEach(System.out::println);

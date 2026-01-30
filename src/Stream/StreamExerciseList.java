@@ -2,13 +2,10 @@ package Stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class StreamExercise {
+public class StreamExerciseList {
     public static void main(String[] args) {
 
         ///////// SNACK 1
@@ -247,5 +244,4 @@ public class StreamExercise {
         return listPeopleWithAdd;
     }
     ///////// SNACK 1
-
 }
