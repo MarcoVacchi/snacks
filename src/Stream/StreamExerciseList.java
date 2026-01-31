@@ -3,6 +3,7 @@ package Stream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StreamExerciseList {
@@ -92,7 +93,8 @@ public class StreamExerciseList {
 
         ///////// SNACK 10
         // Stessa lista. Nomi unici in maiuscolo.
-        uniqueNamesUpper(peopleDuplicate);
+        uniqueNamesUpperList(peopleDuplicate);
+        uniqueNamesUpperSet(peopleDuplicate);
 
         ///////// SNACK 10
 
@@ -100,12 +102,23 @@ public class StreamExerciseList {
     ////// METODI//////
 
     ///////// SNACK 10
-    public static List<String> uniqueNamesUpper(List<String> peopleSet) {
+    public static List<String> uniqueNamesUpperList(List<String> peopleSet) {
         List<String> resultPeople = peopleSet.stream()
                 .collect(Collectors.toSet())
                 .stream()
                 .map(String::toUpperCase)
                 .collect(Collectors.toList());
+        for (String resultPeople2 : resultPeople) {
+            System.out.println(resultPeople2);
+        }
+
+        return resultPeople;
+    }
+
+    public static Set<String> uniqueNamesUpperSet(List<String> peopleSet) {
+        Set<String> resultPeople = peopleSet.stream()
+                .map(String::toUpperCase)
+                .collect(Collectors.toSet());
         for (String resultPeople2 : resultPeople) {
             System.out.println(resultPeople2);
         }
