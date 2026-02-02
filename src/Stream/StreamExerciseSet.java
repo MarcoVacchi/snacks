@@ -1,10 +1,11 @@
 package Stream;
 
+import java.util.Comparator;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,12 @@ public class StreamExerciseSet {
         ///////// SNACK 5
         System.out.println("=======================================");
 
+        ///////// SNACK 6
+        // Nomi in minuscolo
+        setLowerCase(names);
+        ///////// SNACK 6
+        System.out.println("=======================================");
+
         ///////// SNACK 7
         // — Conta quanti nomi iniziano con L
         countNamesWithL(names);
@@ -58,16 +65,44 @@ public class StreamExerciseSet {
         ///////// SNACK 8
         System.out.println("=======================================");
 
+        ///////// SNACK 9
+        // Nome più lungo
+        nameMoreLength(names);
+        ///////// SNACK 9
+        System.out.println("=======================================");
+
+        ///////// SNACK 10
+        // Raggruppa per lunghezza
+        groupByWordsLength(names);
+        ///////// SNACK 10
+        System.out.println("=======================================");
+
     }
 
     // ///////// SNACK 10
     // public static Set<String>
-
+    public static Map<Integer, Set<String>> groupByWordsLength(Set<String> param) {
+        Map<Integer, Set<String>> result = param.stream()
+                .collect(Collectors.groupingBy(
+                        String::length,
+                        Collectors.toSet()));
+        result.forEach((length, words) -> {
+            System.out.println("Lunghezza: " + length + " " + "Parole: " + words);
+        });
+        return result;
+    }
     // ///////// SNACK 10
 
     // ///////// SNACK 9
-    // public static Set<String>
+    public static Optional<String> nameMoreLength(Set<String> param) {
+        // Optional<String> result = param.stream()
+        // .max((s1, s2) -> Integer.compare(s1.length(), s2.length()));
+        Optional<String> result = param.stream()
+                .max(Comparator.comparingInt(String::length));// METHOD REFERENCE
 
+        result.ifPresent(ele -> System.out.println("Nome più lungo: " + ele));
+        return result;
+    }
     // ///////// SNACK 9
 
     // ///////// SNACK 8
@@ -100,7 +135,13 @@ public class StreamExerciseSet {
     // ///////// SNACK 7
 
     // ///////// SNACK 6
-    // public static Set<String>
+    public static Set<String> setLowerCase(Set<String> param) {
+        Set<String> result = param.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
+        result.forEach(System.out::println);
+        return result;
+    }
 
     // ///////// SNACK 6
 
@@ -147,8 +188,7 @@ public class StreamExerciseSet {
     // ///////// SNACK 2
     public static Set<String> setWithL(Set<String> param) {
         Set<String> result = param.stream()
-                .filter(s -> s.toUpperCase().startsWith("L"))
-                .map(String::toUpperCase)
+                .map(String::toUpperCase).filter(s -> s.toUpperCase().startsWith("L"))
                 .collect(Collectors.toSet());
         result.forEach(System.out::println);
 
@@ -170,20 +210,6 @@ public class StreamExerciseSet {
     ///////// SNACK 1
 
 }
-
-// 🔹 SNACK SET 6 — Nomi in minuscolo
-
-// Output: Set<String>
-
-// 🔹 SNACK SET 8 — Trasforma in mappa
-
-// Chiave = nome, Valore = lunghezza
-
-// Output: Map<String, Integer>
-
-// 🔹 SNACK SET 9 — Nome più lungo
-
-// Output: Optional<String>
 
 // 🔹 SNACK SET 10 — Raggruppa per lunghezza
 
