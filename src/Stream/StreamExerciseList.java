@@ -48,6 +48,7 @@ public class StreamExerciseList {
         ///////// SNACK 5
         // Ottieni la lunghezza di ogni parola → List<Integer>.
         List<String> worlds = new ArrayList<>(Arrays.asList("ciao", "sole", "mareeee"));
+        worlds.add("cao");
         worldLength(worlds);
         ///////// SNACK 5
 
