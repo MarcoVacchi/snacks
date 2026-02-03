@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class StreamExerciseMap {
     public static void main(String[] args) {
-
         Map<String, Integer> people = new HashMap<>();
         people.put("Luca", 25);
         people.put("Marco", 17);
@@ -31,18 +30,117 @@ public class StreamExerciseMap {
         ///////// SNACK 3
         // Filtra maggiorenni
         // Tieni solo le persone con età ≥ 18.
-        peopleFilterForAge(people);
+        filterPeopleForAge(people);
         ///////// SNACK 3
         System.out.println("=======================================");
 
         ///////// SNACK 4
-        // Filtra maggiorenni
-        // Tieni solo le persone con età ≥ 18.
-        peopleFilterForAge(people);
+        // Nomi che iniziano per L
+        filterPeopleForWord("M", people);
         ///////// SNACK 4
         System.out.println("=======================================");
 
+        ///////// SNACK 5
+        // Nomi in maiuscolo
+        // Trasforma le chiavi in uppercase.
+        mapPeopleToSwitchCase("lower", people);
+        ///////// SNACK 5
+        System.out.println("=======================================");
+
+        ///////// SNACK 6
+        // Nomi in maiuscolo
+        // Trasforma le chiavi in uppercase.
+
+        ///////// SNACK 6
+        System.out.println("=======================================");
     }
+
+    // ///////// SNACK 6
+
+    // ///////// SNACK 6
+
+    // ///////// SNACK 5
+    public static Map<String, Integer> mapPeopleToSwitchCase(String input, Map<String, Integer> param) {
+        Map<String, Integer> result = param.entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        entry -> switch (input.toLowerCase()) {
+                            case "upper" -> entry.getKey().toUpperCase();
+                            case "lower" -> entry.getKey().toLowerCase();
+                            default -> entry.getKey();
+                        }, Map.Entry::getValue));
+        result.forEach((key, value) -> {
+            System.out.println("Hai scelto: " + input + ": " + key + " " + value); // HO VOLUTO IMPLEMENTARE QUESTA
+                                                                                   // LOGICA COME ESERCIZIO
+        });
+        return result;
+    }
+    // ///////// SNACK 5
+
+    // ///////// SNACK 5
+    public static Map<String, Integer> mapPeopleToUpperCase(Map<String, Integer> param) {
+        Map<String, Integer> result = param.entrySet()
+                .stream()
+                .collect(Collectors.toMap(entry -> entry.getKey().toUpperCase(), Map.Entry::getValue));
+        result.forEach((key, value) -> {
+            System.out.println(key + value);
+        });
+        return result;
+    }
+    // ///////// SNACK 5
+
+    // ///////// SNACK 4
+    public static Map<String, Integer> filterPeopleForWord(String input, Map<String, Integer> param) {
+        Map<String, Integer> result = param.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().startsWith(input))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        result.forEach((key, value) -> {
+            System.out.println("Nome che inizia per lettera scelta: " + key + " " + "Età-> " + value); // PER DIDATTICA
+                                                                                                       // HO VOLUTAMENTE
+                                                                                                       // PASSARE INPUT
+                                                                                                       // PER RENDERLO
+                                                                                                       // DINAMICO IN
+                                                                                                       // BASE ALLA
+                                                                                                       // LETTERA SCELTA
+        });
+        return result;
+    }
+    // ///////// SNACK 4
+
+    // ///////// SNACK 3
+    public static Map<String, Integer> filterPeopleForAge(Map<String, Integer> param) {
+        Map<String, Integer> result = param.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() >= 18)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)); // UTILIZZO METHOD REFERENCE
+        // .collect(Collectors.toMap(entry -> entry.getKey(), entry ->
+        // entry.getValue()));
+        result.forEach((key, value) -> {
+            System.out.println("Nome-> " + key + " Età-> " + value);
+        });
+        return result;
+    }
+    // ///////// SNACK 3
+
+    // ///////// SNACK 2
+    public static List<Integer> peopleAgeWithValueSet(Map<String, Integer> param) {
+        List<Integer> result = param.values()
+                .stream()
+                .collect(Collectors.toList());
+        result.forEach(System.out::println);
+        return result;
+    }
+
+    public static List<Integer> peopleAgeWithEntrySet(Map<String, Integer> param) {
+        List<Integer> result = param.entrySet()
+                .stream()
+                .map(entry -> entry.getValue())
+                .collect(Collectors.toList());
+        result.forEach(System.out::println);
+        return result;
+    }
+    // ///////// SNACK 2
 
     // ///////// SNACK 1
     public static List<String> peopleListWithKeySet(Map<String, Integer> param) {
@@ -72,59 +170,7 @@ public class StreamExerciseMap {
         // filtri sull'età).
     }
     // ///////// SNACK 1
-
-    // ///////// SNACK 2
-    public static List<Integer> peopleAgeWithValueSet(Map<String, Integer> param) {
-        List<Integer> result = param.values()
-                .stream()
-                .collect(Collectors.toList());
-        result.forEach(System.out::println);
-        return result;
-    }
-
-    public static List<Integer> peopleAgeWithEntrySet(Map<String, Integer> param) {
-        List<Integer> result = param.entrySet()
-                .stream()
-                .map(entry -> entry.getValue())
-                .collect(Collectors.toList());
-        result.forEach(System.out::println);
-        return result;
-    }
-    // ///////// SNACK 2
-
-    // ///////// SNACK 3
-    public static Map<String, Integer> peopleFilterForAge(Map<String, Integer> param) {
-        Map<String, Integer> result = param.entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() >= 18)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)); // UTILIZZO METHOD REFERENCE
-        // .collect(Collectors.toMap(entry -> entry.getKey(), entry ->
-        // entry.getValue()));
-        result.forEach((key, value) -> {
-            System.out.println("Nome-> " + key + " Età-> " + value);
-        });
-        return result;
-    }
-    // ///////// SNACK 3
 }
-
-// 🔹 SNACK MAP 3 — Filtra maggiorenni
-
-// Tieni solo le persone con età ≥ 18.
-
-// Output: Map<String, Integer>
-
-// 🔹 SNACK MAP 4 — Nomi che iniziano con L
-
-// Filtra per chiave che inizia con "L".
-
-// Output: Map<String, Integer>
-
-// 🔹 SNACK MAP 5 — Nomi in maiuscolo
-
-// Trasforma le chiavi in uppercase.
-
-// Output: Map<String, Integer>
 
 // 🔹 SNACK MAP 6 — Aumenta tutte le età di 1
 
