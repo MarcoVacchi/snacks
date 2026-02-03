@@ -97,11 +97,11 @@ public class StreamExerciseMap {
         Map<String, Integer> result = param.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() >= 18)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)); // UTILIZZO METHOD REFERENCE
         // .collect(Collectors.toMap(entry -> entry.getKey(), entry ->
         // entry.getValue()));
         result.forEach((key, value) -> {
-            System.out.println(key + value);
+            System.out.println("Nome-> " + key + " Età-> " + value);
         });
         return result;
     }
