@@ -1,5 +1,6 @@
 package Stream;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ public class StreamExerciseMap {
         people.put("Anna", 30);
         people.put("Lorenzo", 15);
         people.put("Laura", 22);
+        people.put("Giorgio", 2);
 
         ///////// SNACK 1
         // Stampa solo le chiavi Ottieni la lista dei nomi.
@@ -36,31 +38,165 @@ public class StreamExerciseMap {
 
         ///////// SNACK 4
         // Nomi che iniziano per L
-        filterPeopleForWord("M", people);
+        filterPeopleForWord(people, "M");
         ///////// SNACK 4
         System.out.println("=======================================");
 
         ///////// SNACK 5
         // Nomi in maiuscolo
         // Trasforma le chiavi in uppercase.
-        mapPeopleToSwitchCase("lower", people);
+        mapPeopleToSwitchCase(people, "lower");
         ///////// SNACK 5
         System.out.println("=======================================");
 
         ///////// SNACK 6
-        // Nomi in maiuscolo
-        // Trasforma le chiavi in uppercase.
-
+        // Aumenta tutte le età di num scelto
+        // Incrementa tutti i valori.
+        mapIncrementAge(people, 1);
         ///////// SNACK 6
+        System.out.println("=======================================");
+
+        ///////// SNACK 7
+        // Filtra maggiorenni e nomi in maiuscolo
+        // Fai filter + map insieme.
+        filterPeopleUpperCase(people, 15, "lower");
+        ///////// SNACK 7
+        System.out.println("=======================================");
+
+        ///////// SNACK 8
+        // Ottieni solo i nomi dei maggiorenni
+        // Prima filtri, poi estrai solo le chiavi.
+        filterPeopleBy18(people);
+        ///////// SNACK 8
+        System.out.println("=======================================");
+
+        ///////// SNACK 9
+        // Media delle età
+        // Calcola la media dei valori.
+        System.out.println(calculateAvg(people));
+        ///////// SNACK 9
+        System.out.println("=======================================");
+
+        ///////// SNACK 10
+        // Trova la persona più grande
+        // Entry con età massima.
+        maxAge(people);
+        ///////// SNACK 10
         System.out.println("=======================================");
     }
 
-    // ///////// SNACK 6
+    // ///////// SNACK 10
+    public static Map<String, Integer> maxAge(Map<String, Integer> param) {
+        Map<String, Integer> result = param.entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(entry -> Map.of(entry.getKey(), entry.getValue()))
+                .orElse(Collections.emptyMap());
+        result.forEach((name, age) -> {
+            System.out.println("Nome-> " + name + " Con l'età maggiore è-> " + age);
+        });
+        return result;
+    }
+    // ///////// SNACK 10
 
+    // ///////// SNACK 9
+    // METODO 1
+    // public static double calculateAvg(Map<String, Integer> param) {
+    // double result = param.values()
+    // .stream()
+    // .mapToInt(entry -> entry.intValue())
+    // .average()
+    // .orElse(0.0);
+    // return result;
+    // }
+    // METODO 2
+    // public static double calculateAvg(Map<String, Integer> param) {
+    // double result = param.entrySet()
+    // .stream()
+    // .map(Map.Entry::getValue)
+    // .collect(Collectors.collectingAndThen(Collectors.toList(),
+    // list -> calculateAvgFunction(list)));
+    // return result;
+    // }
+    // METODO 3
+    public static double calculateAvg(Map<String, Integer> param) {
+        List<Integer> numbers = param.values()
+                .stream()
+                .collect(Collectors.toList());
+        return calculateAvgFunction(numbers);
+    }
+
+    // FUNZIONE PER METODO 3
+    public static double calculateAvgFunction(List<Integer> key) {
+        int count = 0;
+        double result = 0;
+        for (Integer integer : key) {
+            result += integer;
+            count++;
+        }
+        return result / count;
+    }
+    // ///////// SNACK 9
+
+    // ///////// SNACK 8
+    public static List<String> filterPeopleBy18(Map<String, Integer> param) {
+        List<String> result = param.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() >= 18)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        result.forEach(System.out::println);
+        return result;
+    }
+    // ///////// SNACK 8
+
+    // ///////// SNACK 7
+    public static Map<String, Integer> filterPeopleUpperCase(Map<String, Integer> param, Integer numberCompare,
+            String input) {
+        Map<String, Integer> result = param.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() >= numberCompare)
+                .collect(Collectors.toMap(
+                        entry -> switch (input.toLowerCase()) {
+                            case "upper" -> entry.getKey().toUpperCase();
+                            case "lower" -> entry.getKey().toLowerCase();
+                            default -> wordToCamelCase(entry.getKey());
+                        }, Map.Entry::getValue));
+        result.forEach((key, value) -> {
+            System.out.println("Nome-> " + key + " Età-> " + value);
+        });
+
+        return result;
+    }
+
+    public static String wordToCamelCase(String input) {
+        String result = "";
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (i % 2 == 0) {
+                result += Character.toUpperCase(c);
+            } else {
+                result += Character.toLowerCase(c);
+            }
+        }
+        return result;
+    }
+    // ///////// SNACK 7
+
+    // ///////// SNACK 6
+    public static Map<String, Integer> mapIncrementAge(Map<String, Integer> param, Integer increment) {
+        Map<String, Integer> result = param.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue() + increment));
+        result.forEach((key, value) -> {
+            System.out.println("Nome-> " + key + " Età-> " + value);
+        });
+        return result;
+    }
     // ///////// SNACK 6
 
     // ///////// SNACK 5
-    public static Map<String, Integer> mapPeopleToSwitchCase(String input, Map<String, Integer> param) {
+    public static Map<String, Integer> mapPeopleToSwitchCase(Map<String, Integer> param, String input) {
         Map<String, Integer> result = param.entrySet()
                 .stream()
                 .collect(Collectors.toMap(
@@ -90,7 +226,7 @@ public class StreamExerciseMap {
     // ///////// SNACK 5
 
     // ///////// SNACK 4
-    public static Map<String, Integer> filterPeopleForWord(String input, Map<String, Integer> param) {
+    public static Map<String, Integer> filterPeopleForWord(Map<String, Integer> param, String input) {
         Map<String, Integer> result = param.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().startsWith(input))
@@ -171,33 +307,5 @@ public class StreamExerciseMap {
     }
     // ///////// SNACK 1
 }
-
-// 🔹 SNACK MAP 6 — Aumenta tutte le età di 1
-
-// Incrementa tutti i valori.
-
-// Output: Map<String, Integer>
-
-// 🔹 SNACK MAP 7 — Filtra maggiorenni e nomi in maiuscolo
-
-// Fai filter + map insieme.
-
-// Output: Map<String, Integer>
-
-// 🔹 SNACK MAP 8 — Ottieni solo i nomi dei maggiorenni
-
-// Prima filtri, poi estrai solo le chiavi.
-
-// Output: Set<String>
-
-// 🔹 SNACK MAP 9 — Media delle età
-
-// Calcola la media dei valori.
-
-// Output: double
-
-// 🔹 SNACK MAP 10 — Trova la persona più grande
-
-// Entry con età massima.
-
+//
 // Output: Map.Entry<String, Integer>
